@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Backend/GameStoreApp.API/GameStoreApp.API.csproj" Id="bce8bb9b-fc76-4026-a7e4-e1ee1507a8dd" />
+  <Project Path="Backend/GameStoreApp.Application/GameStoreApp.Application.csproj" Id="d027e845-8712-46d7-990b-9746e9630f3d" />
+  <Project Path="Backend/GameStoreApp.Domain/GameStoreApp.Domain.csproj" Id="4ac8ba73-06b5-48a8-bbc4-5aa3958b076d" />
+  <Project Path="Backend/GameStoreApp.Infrastructure/GameStoreApp.Infrastructure.csproj" Id="d3a1394a-3dbc-4602-b7af-9b2109a65b3d" />
+  <Project Path="Backend/GameStoreApp.Tests/GameStoreApp.Tests.csproj" Id="cee4ddad-afad-42b6-856f-479967b4c9e1" />
+</Solution>
