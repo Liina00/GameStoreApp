@@ -1,4 +1,4 @@
-﻿namespace GameStoreApp.Application.Genres
+﻿namespace GameStoreApp.Application.DTOs
 {
     public class GenreDto
     {
