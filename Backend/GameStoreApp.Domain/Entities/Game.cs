@@ -5,6 +5,7 @@ public class Game
     public string Title { get; set; } = string.Empty;//TItle of the GAME
     public string Description { get; set; } = string.Empty;// descripotion of the GAME
     public decimal Price { get; set; } // Price of the GAME
+    public int ReleaseYear { get; set; }//added ReleaseYear, so we can see what year it came out
 
     //this is for GENRE
     public int GenreId { get; set; } //this is the FOREIGN KEY for reference the "GENRE" ENTITY"
