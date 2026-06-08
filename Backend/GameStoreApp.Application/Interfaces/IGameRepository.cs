@@ -13,6 +13,6 @@ namespace GameStoreApp.Application.Interfaces
         Task<Game?> GetByIdAsync(int id);//gets game by its ID so very specific
         Task AddAsync(Game game);//Adds nbew game to DB
         Task UpdateAsync(Game game);//updates a game
-        Task DeleteASync(int id);//deletes a game by its ID
+        Task DeleteAsync(int id);//deletes a game by its ID
     }
 }
