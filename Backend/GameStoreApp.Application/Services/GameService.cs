@@ -79,7 +79,7 @@ namespace GameStoreApp.Application.Services
         }
         public async Task DeleteAsync(int id)//delets a GAME
         {
-            await _gameRepository.DeleteASync(id);
+            await _gameRepository.DeleteAsync(id);
         }
     }
 }

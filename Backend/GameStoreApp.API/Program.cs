@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using GameStoreApp.Infrastructure.Data;
+using GameStoreApp.Application.Interfaces;
+using GameStoreApp.Infrastructure.Repositories;
 
 namespace GameStoreApp.API
 {
@@ -12,6 +14,9 @@ namespace GameStoreApp.API
             //register DBxontrext
             builder.Services.AddDbContext<GameStoreAppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<IGameRepository, GameRepository>();
+            builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();

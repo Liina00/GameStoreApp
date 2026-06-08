@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GameStoreApp.Application\GameStoreApp.Application.csproj" />
     <ProjectReference Include="..\GameStoreApp.Domain\GameStoreApp.Domain.csproj" />
   </ItemGroup>
 
