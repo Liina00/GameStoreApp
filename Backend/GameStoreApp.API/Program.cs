@@ -15,12 +15,14 @@ namespace GameStoreApp.API
             //register DBxontrext
             builder.Services.AddDbContext<GameStoreAppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+            //generic reposiotry
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            //repositories
             builder.Services.AddScoped<IGameRepository, GameRepository>();
             builder.Services.AddScoped<IGenreRepository, GenreRepository>();
-
-            builder.Services.AddScoped<GameService>();
-            builder.Services.AddScoped<GenreService>();
+            //Services
+            builder.Services.AddScoped<IGameService, GameService>();
+            builder.Services.AddScoped<IGenreService, GenreService>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
