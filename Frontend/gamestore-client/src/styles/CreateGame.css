@@ -1,0 +1,39 @@
+.create-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 450px;
+    margin: 0 auto;
+}
+.create-form label {
+    font-weight: bold;
+    color: var(--accent);
+}
+.create-form input,
+.create-form select {
+    background: var(--panel);
+    border: 1px solid var(--accent);
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: var(--text);
+}
+.create-form button {
+    margin-top: 10px;
+    background: var(--accent);
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.create-form button:hover {
+    background: #00eaff;
+}
+.error-message {
+    color: #ff4d4d;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 600;
+}
