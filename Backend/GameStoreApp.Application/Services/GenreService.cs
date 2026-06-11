@@ -36,13 +36,14 @@ namespace GameStoreApp.Application.Services
                 Name = genre.Name
             };
         }
-        public async Task AddAsync(GenreDto dto)//create new GENRE
+        public async Task<Genre> AddAsync(GenreDto dto)//create new GENRE
         {
             var genre = new Genre
             {
                 Name = dto.Name
             };
             await _genreRepository.AddAsync(genre);
+            return genre;//here so that IT SAVES AND RETURN IT :O
         }
         public async Task UpdateAsync(int id, GenreDto dto)//updates a genre
         {

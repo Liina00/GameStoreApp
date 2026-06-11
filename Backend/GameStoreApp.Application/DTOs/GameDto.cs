@@ -14,6 +14,7 @@ namespace GameStoreApp.Application.DTOs
         public string Description { get; set; }= string.Empty;
         public int ReleaseYear { get; set; }
         //API return this Genrename and not the whole entity of genre
-        public string GenreName { get; set; } = string.Empty;
+        public string GenreName { get; set; } = "";//Detta för outputten
+        public int GenreId { get; set; }// genre id för inpout
     }
 }

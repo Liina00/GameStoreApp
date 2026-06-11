@@ -1,0 +1,140 @@
+/*filter bar */
+.filter-bar {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    justify-content: center; 
+    flex-wrap: wrap;
+}
+.filter-bar select,
+.filter-bar input {
+    background: var(--panel);
+    border: 1px solid var(--accent);
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: var(--text);
+}
+/*Grid here*/
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+/*Game card fir game*/
+.game-card {
+    background: var(--panel);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    color: var(--text);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.game-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 15px var(--accent);
+}
+.game-card {
+    position: relative;
+    overflow: hidden;
+}
+.hover-info {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
+    color: var(--text);
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    pointer-events: none; 
+}
+.game-card:hover .hover-info {
+    opacity: 1;
+}
+.genre  {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: var(--accent);
+    font-weight: bold;
+}
+.price {
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
+.year {
+    opacity: 0.7;
+    margin-bottom: 10px;
+}
+/*DELETE button here*/
+.delete-btn {
+    margin-top: 10px;
+    background: #ff4d4d;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    width: 100%;
+}
+.delete-btn:hover {
+    background: #ff1a1a;
+}
+/*EDIT MODALEN*/
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+} 
+.modal-content {
+    background: var(--panel);
+    padding: 25px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: var(--shadow);
+    flex-direction: column;
+    display: flex;
+    gap: 12px;
+}
+.modal-content input,
+.modal-content textarea {
+    background: var(--panel-light);
+    border: 1px solid var(--accent);
+    padding: 10px;
+    border-radius: 6px;
+    color: var(--text);
+}
+.close-btn {
+    background: #ff4d4d;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+}
+.close-btn:hover {
+    background: #ff1a1a;
+}
+.edit-btn {
+  margin-top: 10px;
+  background: var(--accent);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: black;
+  width: 100%;
+  font-weight: bold;
+}
+.edit-btn:hover {
+    background: #00eaff;
+}

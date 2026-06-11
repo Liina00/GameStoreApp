@@ -30,8 +30,18 @@ public class GamesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> Create(GameDto dto)//creates a new game
     {
-        await _gameService.AddAsync(dto);
-        return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);
+        var game = await _gameService.AddAsync(dto);
+        var gameDto = new GameDto
+        {
+            Id = game.Id,
+            Title = game.Title,
+            Price = game.Price,
+            Description = game.Description,
+            ReleaseYear = game.ReleaseYear,
+            GenreId = game.GenreId,//här ghar vi genre id och under name för input/(output
+            GenreName = game.Genre?.Name ?? ""
+        };
+        return CreatedAtAction(nameof(GetById), new { id = game.Id }, gameDto);
     }
     [HttpPut("{id}")]
     public async Task<ActionResult> Update(int id, GameDto dto)//updates a existing game

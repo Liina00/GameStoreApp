@@ -31,8 +31,13 @@ public class GenresController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> Create(GenreDto dto)
     {
-        await _genreService.AddAsync(dto);
-        return Ok();
+        var genre = await _genreService.AddAsync(dto);
+        var genreDto = new GenreDto
+        {
+            Id = genre.Id,
+            Name = genre.Name
+        };
+        return CreatedAtAction(nameof(GetById), new { id = genre.Id }, genreDto);
     }
     [HttpPut("{id}")]//updates
     public async Task<ActionResult> Update(int id, GenreDto dto)

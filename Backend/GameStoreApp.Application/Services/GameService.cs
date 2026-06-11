@@ -31,6 +31,7 @@ namespace GameStoreApp.Application.Services
                 Price = g.Price,
                 Description = g.Description,
                 ReleaseYear = g.ReleaseYear,
+                GenreId = g.GenreId,
                 GenreName = g.Genre?.Name ?? ""
             });
         }
@@ -46,12 +47,13 @@ namespace GameStoreApp.Application.Services
                 Price = game.Price,
                 Description = game.Description,
                 ReleaseYear = game.ReleaseYear,
+                GenreId = game.GenreId,
                 GenreName = game.Genre?.Name ?? ""
             };
         }
-        public async Task AddAsync(GameDto dto)//create new GAme
+        public async Task<Game> AddAsync(GameDto dto)//create new GAme
         {
-            var genre = await _genreRepository.GetByIdAsync(dto.Id);
+            var genre = await _genreRepository.GetByIdAsync(dto.GenreId);//changed to genreid instead of name..:D
             if (genre == null)
                 throw new Exception("Genre not found...");
 
@@ -64,6 +66,7 @@ namespace GameStoreApp.Application.Services
                 GenreId = genre.Id
             };
             await _gameRepository.AddAsync(game);
+            return game; //so it RETURNS 
         }
         public async Task UpdateAsync(int id, GameDto dto) //updates a GAME
         {
@@ -74,6 +77,7 @@ namespace GameStoreApp.Application.Services
             game.Price = dto.Price;
             game.Description = dto.Description;
             game.ReleaseYear = dto.ReleaseYear;
+            game.GenreId = dto.GenreId;
 
             await _gameRepository.UpdateAsync(game);
         }
