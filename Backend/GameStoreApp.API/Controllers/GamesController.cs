@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GameStoreApp.Application.DTOs;
-using GameStoreApp.Application.Services;
+using GameStoreApp.Application.Interfaces;
 
 namespace GameStoreApp.API.Controllers;
 
@@ -8,8 +8,8 @@ namespace GameStoreApp.API.Controllers;
 [Route("api/[controller]")]
 public class GamesController : ControllerBase
 {
-    private readonly GameService _gameService;
-    public GamesController(GameService gameService)//injecting GAMESERVICE
+    private readonly IGameService _gameService;
+    public GamesController(IGameService gameService)//injecting IGAMESERVICE
     {
         _gameService = gameService;
     }
@@ -30,19 +30,24 @@ public class GamesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> Create(GameDto dto)//creates a new game
     {
-        await _gameService.AddAsync(dto);
-        return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);
+        var created = await _gameService.CreateAsync(dto);
+        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
     [HttpPut("{id}")]
     public async Task<ActionResult> Update(int id, GameDto dto)//updates a existing game
     {
-        await _gameService.UpdateAsync(id, dto);
-        return NoContent();
+        var updated = await _gameService.UpdateAsync(id, dto);
+        if (updated == null)
+            return NotFound();
+
+        return Ok(updated);
     }
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)//delets a game by ID
     {
-        await _gameService.DeleteAsync(id);
+        var deleted = await _gameService.DeleteAsync(id);
+        if (!deleted)
+            return NotFound();
         return NoContent();
     }
 }
