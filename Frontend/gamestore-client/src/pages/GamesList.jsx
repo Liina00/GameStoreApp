@@ -4,6 +4,7 @@ import { getAllGenres } from "../services/genresService";
 import "../styles/GamesList.css";
 
 function GamesList() {
+  const [error, setError] = useState("");
   const [games, setGames] = useState([]);
   const [genres, setGenres] = useState([]);
 
@@ -14,11 +15,11 @@ function GamesList() {
   const [editOpen, setEditOpen] = useState(false);
   const [currentGame, setCurrentGame] = useState(null);
 
-  const loadGames = () => {
-    getAllGames().then(setGames);
+  const loadGames = () => { setError("");
+    getAllGames().then(setGames).catch(() => setError("Failed loading games.."));
   };
   
-  const loadGenres = () => { getAllGenres().then(setGenres); };
+  const loadGenres = () => { getAllGenres().then(setGenres).catch(() => setError("Failed to load the genres...")); };
 
   useEffect(() => {
     loadGames();
@@ -26,17 +27,23 @@ function GamesList() {
   }, []);
 
   const handleDelete = async (id) => {
-    await deleteGame(id);
-    loadGames();
+    setError("");
+    try {
+      await deleteGame(id);
+      loadGames();
+    } catch { setError("failed to delete game!"); }
   };
   function openEditModal(game) {
     setCurrentGame(game);
     setEditOpen(true);
   };
   async function saveEdit() {
-    await updateGame(currentGame.id, currentGame);
-    setEditOpen(false);
-    loadGames();
+    setError("");
+    try {
+      await updateGame(currentGame.id, currentGame);
+      setEditOpen(false);
+      loadGames();
+    } catch { setError("Failed to update the game.."); }
   }
 
   const filtered = games
@@ -53,6 +60,8 @@ function GamesList() {
   return (
     <div className="panel">
       <h2>Games</h2>
+      {error && <p className="error-message">{error}</p>}
+      
       {/* filter bar*/}
       <div className="filter-bar">
         <select

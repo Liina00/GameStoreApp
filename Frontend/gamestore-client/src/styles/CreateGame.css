@@ -31,3 +31,9 @@
 .create-form button:hover {
     background: #00eaff;
 }
+.error-message {
+    color: #ff4d4d;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 600;
+}

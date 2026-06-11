@@ -7,6 +7,7 @@ import "../styles/CreateGame.css";
 function CreateGame()
  {
   const navigate = useNavigate();//redirect afte submit
+  const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");//hade 0 innan, men då försviunner ej nollan, blir tex 039$
   const [description, setDescription] = useState("");
@@ -20,14 +21,15 @@ function CreateGame()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    await createGame({
-      title,
-      price: parseFloat(price.replace(",", ".")),
-      description,
-      releaseYear,
-      genreId,
-    });
+    setError("");
+    try {
+      await createGame({
+        title,
+        price: parseFloat(price.replace(",", ".")),
+        description,
+        releaseYear,
+        genreId,
+      });
     // Reset form here
     setTitle("");
     setPrice("");
@@ -36,10 +38,14 @@ function CreateGame()
     setGenreId(0);
     //here redirect to list
     navigate("/");
-  };
+  } catch {
+    setError("Failed to create game..");
+  }
   return (
     <div className="panel">
       <h2>Create Game</h2>
+
+      {error && <p className="error-message">{error}</p>}
 
       <form className="create-form" onSubmit={handleSubmit}>
         <label>Title</label>
@@ -94,5 +100,6 @@ function CreateGame()
       </form>
     </div>
   );
+}
 }
 export default CreateGame;
