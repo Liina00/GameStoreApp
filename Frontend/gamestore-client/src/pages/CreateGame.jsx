@@ -41,6 +41,7 @@ function CreateGame()
   } catch {
     setError("Failed to create game..");
   }
+};
   return (
     <div className="panel">
       <h2>Create Game</h2>
@@ -100,6 +101,5 @@ function CreateGame()
       </form>
     </div>
   );
-}
 }
 export default CreateGame;
