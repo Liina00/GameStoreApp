@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 
 namespace GameStoreApp.Application.Services
 {
-    public class GameService
+    public class GameService : IGameService
     {
         private readonly IGameRepository _gameRepository;
         private readonly IGenreRepository _genreRepository;
@@ -31,6 +31,7 @@ namespace GameStoreApp.Application.Services
                 Price = g.Price,
                 Description = g.Description,
                 ReleaseYear = g.ReleaseYear,
+                GenreId = g.GenreId,
                 GenreName = g.Genre?.Name ?? ""
             });
         }
@@ -46,12 +47,13 @@ namespace GameStoreApp.Application.Services
                 Price = game.Price,
                 Description = game.Description,
                 ReleaseYear = game.ReleaseYear,
+                GenreId = game.GenreId,
                 GenreName = game.Genre?.Name ?? ""
             };
         }
-        public async Task AddAsync(GameDto dto)//create new GAme
+        public async Task<GameDto> CreateAsync(GameDto dto)//create new GAme
         {
-            var genre = await _genreRepository.GetByIdAsync(dto.Id);
+            var genre = await _genreRepository.GetByIdAsync(dto.GenreId);
             if (genre == null)
                 throw new Exception("Genre not found...");
 
@@ -61,25 +63,34 @@ namespace GameStoreApp.Application.Services
                 Price = dto.Price,
                 Description = dto.Description,
                 ReleaseYear = dto.ReleaseYear,
-                GenreId = genre.Id
+                GenreId = dto.GenreId
             };
             await _gameRepository.AddAsync(game);
+            dto.Id = game.Id;
+            return dto;
         }
-        public async Task UpdateAsync(int id, GameDto dto) //updates a GAME
+        public async Task<GameDto?> UpdateAsync(int id, GameDto dto) //updates a GAME
         {
             var game = await _gameRepository.GetByIdAsync(id);
             if (game == null)
-                throw new Exception("Game not found..");
+                return null;//ändrat från throw new Exception, hittade fel vid felsökning
+
             game.Title = dto.Title;
             game.Price = dto.Price;
             game.Description = dto.Description;
             game.ReleaseYear = dto.ReleaseYear;
+            game.GenreId = dto.GenreId;
 
             await _gameRepository.UpdateAsync(game);
+            return dto;
         }
-        public async Task DeleteAsync(int id)//delets a GAME
+        public async Task<bool> DeleteAsync(int id)//delets a GAME
         {
+            var game = await _gameRepository.GetByIdAsync(id);
+            if (game == null)
+                return false;
             await _gameRepository.DeleteAsync(id);
+            return true;
         }
     }
 }
